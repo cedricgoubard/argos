@@ -1,0 +1,10 @@
+# This is an example conf file for argos backend
+# Copy it, rename it "config.yaml" and fill in the values to use it
+
+name: "Argos Back"  # Name of the API
+debug: false         # If true, flask will be launched in debug mode
+port: 8888          # Port for the Flask API
+upload:
+  folder: "./uploads"            # Local folder in which the uploaded pictures are saved
+                                 # "./uploads" is the recommended value (already in .gitignore)
+  extensions: ["jpg", "jpeg",]   # File extensions accepted by the API
