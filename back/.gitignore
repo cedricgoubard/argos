@@ -1,0 +1,5 @@
+# Pictures upload folder in back
+uploads/
+
+# User conf file
+config.yaml
