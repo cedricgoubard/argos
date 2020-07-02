@@ -1,34 +1,33 @@
 # -*- coding: utf-8 -*-
-"""Useful functions for flask restx
+"""Useful functions for Argos backend
 
-This module provides useful functions to process pictures with flask restx (parser to enable API
-testing using swagger, checking file extensions, and savig the files).
+This module provides a a few functions used in Argos backend:
+    - Saving a base 64 encoded JPEG
+    - Setting logging level based on conf file
 """
-import os
-import werkzeug
-from flask_restx import reqparse
+import base64
+import logging
+from datetime import datetime
 
 
-def allowed_file(filename, extensions):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in extensions
+def save_b64_jpeg(img: str, folder_path: str) -> None:
+    """Save a b64-encoded picture as jpeg file with the current timestamp as filename.
+
+    Args:
+        img: the jpeg picture encoded in base 64, i.e. a string
+        folder_path: path to the folder in which to save the picture
+    """
+    timestamp = datetime.now().isoformat()
+    with open(folder_path + f"/{timestamp}.jpg", "wb") as fh:
+        fh.write(base64.decodebytes(img.encode()))
 
 
-def save_picture(flask_file, cfg):
-    if not allowed_file(flask_file.filename, cfg.upload.extensions):
-        extension = flask_file.filename.rsplit('.', 1)[1].lower()
-        return f"Extension not allowed; found {extension}, expected {cfg.upload.extensions}", 400
+def get_logging_level_from_str(level:str):
+    level_dic = {
+        "debug": logging.DEBUG,
+        "info": logging.INFO,
+        "warning": logging.WARNING,
+        "error": logging.ERROR
+    }
 
-    save_path = os.path.join(cfg.upload.folder, flask_file.filename)
-    flask_file.save(save_path)
-    return "File saved", 200
-
-
-def get_file_parser():
-    file_upload = reqparse.RequestParser()
-    file_upload.add_argument('image',
-                            type=werkzeug.datastructures.FileStorage,
-                            location='files',
-                            required=True,
-                            help='User picture')
-    return file_upload
+    return level_dic[level]

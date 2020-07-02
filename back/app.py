@@ -13,12 +13,14 @@ Attributes:
     api (flask_restx.Api): the Flask restx api, which is an overlay of the Flask app providing an
         integrated swagger
 """
+import logging
+
 import yaml
 from box import Box
-from flask import Flask
+from flask import Flask, request, make_response
 from flask_restx import Api, Resource
 
-from utils import get_file_parser, save_picture
+from utils import save_b64_jpeg, get_logging_level_from_str
 
 with open("config.yaml", "r") as ymlfile:
     cfg = Box(yaml.safe_load(ymlfile))
@@ -26,12 +28,25 @@ with open("config.yaml", "r") as ymlfile:
 app = Flask(cfg.name)
 api = Api(app)
 
+api.logger.setLevel(get_logging_level_from_str(cfg.logging_level))
+
 @api.route('/webcam')
-class ArgosBack(Resource):
-    @api.expect(get_file_parser())
+class ImageUpload(Resource):
     def post(self):
-        args = get_file_parser().parse_args()
-        return save_picture(args["image"], cfg)
+        img = request.json["img"]
+        img_without_metadata = img.split(",")[1]
+        save_b64_jpeg(img_without_metadata, cfg.upload.folder)
+
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        return response
+
+    def options(self):
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "*")
+        response.headers.add("Access-Control-Allow-Methods", "*")
+        return response
 
 
 if __name__ == '__main__':
