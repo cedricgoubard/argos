@@ -3,6 +3,10 @@ ifeq (,$(wildcard ./config.yaml))
     $(error "Missing config file; please copy config.example.yaml to config.yaml, and update the values")
 endif
 
+# Check if a port is given
+FLASK_PORT?=8888
+
+# Compute docker tag
 DOCKER_IMAGES=$(shell docker images -q argos 2> /dev/null)
 
 ifeq ($(DOCKER_IMAGES), )
@@ -28,7 +32,7 @@ clean-docker:
 	docker rmi $$(docker images --format '{{.Repository}}:{{.Tag}}' | grep 'argos')
 
 run:
-	docker run -p 8374:8374 argos:latest
+	docker run -p $(FLASK_PORT):$(FLASK_PORT) argos:latest
 
 clean-python:
 	rm --force --recursive *.egg-info
