@@ -17,12 +17,16 @@ endif
 
 install:
 	python3 -m venv venv
+	venv/bin/pip install wheel
 	venv/bin/pip install -r requirements.txt
 	#venv/bin/python -m ipykernel install --user --name=argos
 
 uninstall:
 	#venv/bin/python -m jupyter kernelspec uninstall argos
 	rm --force --recursive venv/
+
+update-requirements:
+	pip freeze | grep -v "pkg-resources" > requirements.txt
 
 build:
 	docker build -t argos:latest -t argos:$(DOCKER_TAG) .
