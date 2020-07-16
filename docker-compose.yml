@@ -1,0 +1,17 @@
+version: '3'
+services:
+    front:
+        image: argos-front:latest
+        ports:
+            - "3000:3000"
+        stdin_open: true
+
+    back:
+        image: argos-back:latest
+        ports:
+            - "8722:8722"
+        volumes:
+            - "./back/uploads/:/argos/uploads/"
+
+
+
