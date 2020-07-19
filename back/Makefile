@@ -1,8 +1,3 @@
-# Check if config file exists
-ifeq (,$(wildcard ./config.yaml))
-    $(error "Missing config file; please copy config.example.yaml to config.yaml, and update the values")
-endif
-
 # Check if a port is given
 FLASK_PORT?=8722
 
@@ -20,12 +15,14 @@ install:
 	venv/bin/pip install wheel
 	venv/bin/pip install -r requirements.txt
 	mkdir uploads
+	cp config.example.yaml config.yaml
 	#venv/bin/python -m ipykernel install --user --name=argos
 
 uninstall:
 	#venv/bin/python -m jupyter kernelspec uninstall argos
 	rm --force --recursive venv/
-	rm --forece --recursive uploads/
+	rm --force --recursive uploads/
+	rm --force --recursive config.yaml
 
 update-requirements:
 	pip freeze | grep -v "pkg-resources" > requirements.txt

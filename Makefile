@@ -13,7 +13,9 @@ install:
 	cd back && $(MAKE) install
 	cd front && $(MAKE) install
 
-	@echo 
+	cp docker-compose.example.yaml docker-compose.yaml
+
+	@echo  
 	@echo "################################## NEXT STEPS ##################################"
 	@echo 
 	@echo Before building, you still need to fill in:
