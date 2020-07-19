@@ -3,3 +3,6 @@ venv/
 
 # Python runtime files
 **/__pycache__/
+
+# Config file
+docker-compose.yaml
