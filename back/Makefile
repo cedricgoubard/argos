@@ -4,7 +4,7 @@ ifeq (,$(wildcard ./config.yaml))
 endif
 
 # Check if a port is given
-FLASK_PORT?=8888
+FLASK_PORT?=8722
 
 # Compute docker tag
 DOCKER_IMAGES=$(shell docker images -q argos-back 2> /dev/null)
