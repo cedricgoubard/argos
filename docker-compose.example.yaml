@@ -3,13 +3,13 @@ services:
     front:
         image: argos-front:latest
         ports:
-            - "3000:3000"
+            - "3000:3000"  # Front Port, defined in front/argos/.env.development.local
         stdin_open: true
 
     back:
         image: argos-back:latest
         ports:
-            - "8722:8722"
+            - "8722:8722"  # Back Port, defined in back/config.yaml
         volumes:
             - "./back/uploads/:/argos/uploads/"
 
