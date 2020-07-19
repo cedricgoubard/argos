@@ -1,3 +1,8 @@
+# Check if config file exists
+ifeq (,$(wildcard argos/.env.development.local))
+    $(error "Missing config file; please copy .env.example to .env.development.local, and update the values")
+endif
+
 # Compute docker tag
 DOCKER_IMAGES=$(shell docker images -q argos-front 2> /dev/null)
 
