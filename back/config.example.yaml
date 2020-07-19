@@ -3,7 +3,7 @@
 
 name: "Argos Back"  # Name of the API
 debug: false         # If true, flask will be launched in debug mode
-port: 8888          # Port for the Flask API
+port: 8722          # Port for the Flask API
 logging_level: "warning"  # Python / flask logging level
 upload:
   folder: "./uploads"            # Local folder in which the uploaded pictures are saved
