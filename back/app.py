@@ -50,7 +50,4 @@ class ImageUpload(Resource):
 
 
 if __name__ == '__main__':
-    host = "localhost"
-    if cfg.debug:
-        host = "0.0.0.0"
-    app.run(debug=cfg.debug, host=host, port=cfg.port)
+    app.run(debug=cfg.debug, host="0.0.0.0", port=cfg.port)
