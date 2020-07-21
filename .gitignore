@@ -3,6 +3,7 @@ venv/
 
 # Python runtime files
 **/__pycache__/
+*.egg-info
 
 # Config file
 docker-compose.yaml
