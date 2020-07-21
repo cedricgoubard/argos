@@ -34,4 +34,4 @@ run:
 set-port:
 	sed -i -r 's/port\: [0-9]{4,5}/port\: $(PORT_ARGS)/' back/config.yaml
 	sed -i -r 's/(REACT_APP_BACK_URL = .{5,20})\:[0-9]{4,5}/\1\:$(PORT_ARGS)/' front/argos/.env.development.local
-	sed -i -r 's/(.*)([0-9]{4,5})\:([0-9]{4,5})(.*Back Port, defined.*)/\1$(PORT_ARGS)\:$(PORT_ARGS)\4/' docker-compose.yml
+	sed -i -r 's/(.*)([0-9]{4,5})\:([0-9]{4,5})(.*Back Port, defined.*)/\1$(PORT_ARGS)\:$(PORT_ARGS)\4/' docker-compose.yaml
