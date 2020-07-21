@@ -11,9 +11,11 @@ else
 endif
 
 install:
+	sudo apt install python3-opencv
 	python3 -m venv venv
 	venv/bin/pip install wheel
 	venv/bin/pip install -r requirements.txt
+	venv/bin/pip install -e .
 	mkdir uploads
 	cp config.example.yaml config.yaml
 	#venv/bin/python -m ipykernel install --user --name=argos
