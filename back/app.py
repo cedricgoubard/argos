@@ -14,6 +14,7 @@ Attributes:
         integrated swagger
 """
 import logging
+from os import path
 
 import yaml
 from box import Box
@@ -21,6 +22,7 @@ from flask import Flask, request, make_response
 from flask_restx import Api, Resource
 
 from argos.utils import save_b64_jpeg, get_logging_level_from_str
+from argos.face_detection import detect_face
 
 with open("config.yaml", "r") as ymlfile:
     cfg = Box(yaml.safe_load(ymlfile))
@@ -36,6 +38,12 @@ class ImageUpload(Resource):
         img = request.json["img"]
         img_without_metadata = img.split(",")[1]
         save_b64_jpeg(img_without_metadata, cfg.upload.folder)
+
+        detect_face(
+            path.join(cfg.upload.folder, "latest.jpg"),
+            cfg.models.haar_path,
+            cfg.processed_pictures_path
+            )
 
         response = make_response()
         response.headers.add("Access-Control-Allow-Origin", "*")

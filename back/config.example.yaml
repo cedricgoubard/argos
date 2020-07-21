@@ -9,3 +9,4 @@ upload:
   folder: "./uploads"            # Local folder in which the uploaded pictures are saved
                                  # "./uploads" is the recommended value (already in .gitignore)
   extensions: ["jpg", "jpeg",]   # File extensions accepted by the API
+processed_pictures_path: "./data/processed"
