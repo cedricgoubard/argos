@@ -18,8 +18,12 @@ def save_b64_jpeg(img: str, folder_path: str) -> None:
         folder_path: path to the folder in which to save the picture
     """
     timestamp = datetime.now().isoformat()
+    img_bytes = base64.decodebytes(img.encode())
     with open(folder_path + f"/{timestamp}.jpg", "wb") as fh:
-        fh.write(base64.decodebytes(img.encode()))
+        fh.write(img_bytes)
+    
+    with open(folder_path + "/latest.jpg", "wb") as fh:
+        fh.write(img_bytes)
 
 
 def get_logging_level_from_str(level:str):

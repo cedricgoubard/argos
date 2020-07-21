@@ -20,7 +20,7 @@ from box import Box
 from flask import Flask, request, make_response
 from flask_restx import Api, Resource
 
-from utils import save_b64_jpeg, get_logging_level_from_str
+from argos.utils import save_b64_jpeg, get_logging_level_from_str
 
 with open("config.yaml", "r") as ymlfile:
     cfg = Box(yaml.safe_load(ymlfile))
